@@ -37,6 +37,58 @@
     </div>
     <nav class="page-navigation" aria-label="Seitennavigation"><a class="secondary-button" href="../website/index.html" aria-label="Zurück zu den Websites"><span aria-hidden="true">←</span></a><span class="page-count" aria-label="Seite 4 von 4">4/4</span></nav>
   </main>
+  <div class="poster-outro" aria-hidden="true">
+    <div class="poster-outro-stage">
+      <div class="poster-outro-photo"><img src="../assets/zoom-pole.png" alt=""></div>
+      <div class="poster-outro-sheet" inert></div>
+    </div>
+  </div>
+  <script>
+    const outro = document.querySelector('.poster-outro');
+    const sheet = outro.querySelector('.poster-outro-sheet');
+    const photo = outro.querySelector('.poster-outro-photo');
+    const pole = photo.querySelector('img');
+    sheet.append(
+      document.querySelector('body > .site-header').cloneNode(true),
+      document.querySelector('body > .about-page').cloneNode(true)
+    );
+
+    const clamp = value => Math.min(1, Math.max(0, value));
+    let frame = 0;
+
+    function updateOutro() {
+      frame = 0;
+      const distance = Math.max(1, outro.offsetHeight - window.innerHeight);
+      const progress = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 1
+        : clamp(-outro.getBoundingClientRect().top / distance);
+      const motion = clamp((progress - 0.08) / 0.84);
+      const eased = motion * motion * (3 - 2 * motion);
+      const image = pole.getBoundingClientRect();
+      const poster = {
+        x: image.left + image.width * 0.32,
+        y: image.top + image.height * 0.248,
+        width: image.width * 0.432,
+        height: image.height * 0.335
+      };
+      const moveX = (poster.x + poster.width / 2 - window.innerWidth / 2) * eased;
+      const moveY = (poster.y + poster.height / 2 - window.innerHeight / 2) * eased;
+      const scaleX = 1 + (poster.width / sheet.offsetWidth - 1) * eased;
+      const scaleY = 1 + (poster.height / sheet.offsetHeight - 1) * eased;
+      sheet.style.transform = `translate(-50%, -50%) translate3d(${moveX}px, ${moveY}px, 0) scale(${scaleX}, ${scaleY})`;
+      sheet.style.borderRadius = `${eased * 3}px`;
+      sheet.style.boxShadow = `0 ${eased * 12}px ${eased * 35}px rgba(0, 0, 0, ${eased * 0.22})`;
+      photo.style.opacity = clamp((progress - 0.05) / 0.55);
+    }
+
+    function queueOutro() {
+      if (!frame) frame = requestAnimationFrame(updateOutro);
+    }
+
+    window.addEventListener('scroll', queueOutro, { passive: true });
+    window.addEventListener('resize', queueOutro);
+    updateOutro();
+  </script>
   <script data-goatcounter="https://studiovis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
