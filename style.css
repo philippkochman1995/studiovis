@@ -31,6 +31,14 @@ h3{font-size:1.55rem}
 .page-navigation .secondary-button{grid-column:1;justify-self:start}
 .page-navigation .primary-button{grid-column:3;justify-self:end}
 .page-count{grid-column:2;grid-row:1;color:var(--muted);font-size:.85rem;line-height:1;font-variant-numeric:tabular-nums}
+.flyer-transitioning .site-header{position:relative;z-index:60}
+.flyer-tearing{position:relative;z-index:40;background:var(--paper);border-top:2px dashed #c9c5ba;transform-origin:88% 12%;will-change:transform,opacity;animation:flyer-tear .82s cubic-bezier(.22,.7,.25,1) both}
+.flyer-tearing::after{content:"";position:absolute;top:-2px;right:0;width:42px;height:42px;background:linear-gradient(225deg,#dedbd3 0 48%,transparent 49%);box-shadow:-4px 4px 7px rgba(0,0,0,.09);pointer-events:none}
+.flyer-hand{position:fixed;z-index:50;max-width:none;height:auto;pointer-events:none;transform-origin:30% 74%;will-change:transform,opacity;animation:hand-tear .82s cubic-bezier(.22,.7,.25,1) both}
+.flyer-arriving{animation:flyer-arrive .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes flyer-tear{0%,22%{transform:translate(0,0) rotate(0) scale(1);opacity:1;box-shadow:none}38%{transform:translate(10px,14px) rotate(2deg) scale(1);opacity:1;box-shadow:0 18px 35px rgba(0,0,0,.13)}100%{transform:translate(76vw,75vh) rotate(19deg) scale(.87);opacity:0;box-shadow:0 32px 60px rgba(0,0,0,.2)}}
+@keyframes hand-tear{0%{opacity:0;transform:translate(100px,-80px) rotate(-12deg)}12%{opacity:1}22%{transform:translate(0,0) rotate(0);opacity:1}38%{transform:translate(10px,14px) rotate(2deg);opacity:1}100%{transform:translate(76vw,75vh) rotate(19deg);opacity:0}}
+@keyframes flyer-arrive{from{opacity:0;transform:translate(-18px,24px) rotate(-1.5deg) scale(.98)}to{opacity:1;transform:translate(0,0) rotate(0) scale(1)}}
 .choice-screen{display:flex;flex-direction:column;min-height:calc(100svh - 100px);padding:2rem 0 3rem}
 .choice-screen .page-navigation{margin-top:auto;padding-top:3rem}
 .choice-screen h1{margin-bottom:2rem}
@@ -103,4 +111,5 @@ h3{font-size:1.55rem}
 @media(max-width:650px){.page-navigation .primary-button{min-width:145px}.choice-card{min-width:0}}
 @media(max-width:650px){body{font-size:1.18rem;line-height:1.5}.shell{width:min(100% - 36px,720px)}.site-header{min-height:78px;gap:.4rem}.wordmark{font-size:1.53rem}.intro{padding-top:1.8rem}h1{font-size:2.5rem;margin-bottom:1.4rem}h2{font-size:2.5rem}.hero-visual{height:500px;min-height:0;border-radius:16px}.hero-visual img{min-width:0;width:100%;max-width:380px}.statement{font-size:1.3rem;margin:1.5rem 0 1.4rem}.home-actions{padding-bottom:4rem}.primary-button{width:auto}.choice-screen{padding:1.2rem 0 3rem}.choice-grid{grid-template-columns:minmax(0,1fr);gap:12px}.choice-card{min-height:120px}.choice-card h2{font-size:1.4rem}.page-main{padding:1.2rem 0 3rem}.about-page,.question-page,.imprint{min-height:calc(100svh - 78px)}.project-slider{margin-top:3rem}.project-media>img{border-radius:12px}.project-controls{left:8px;right:8px}.project-arrow{width:38px;height:38px;font-size:1.2rem}.project-caption{padding-top:1rem}.project-caption p{font-size:1rem}.editorial-image,.editorial-image img{min-height:440px;max-height:520px}.imprint h1{margin-bottom:2rem}}
 @media(prefers-reduced-motion:reduce){.poster-outro{height:100svh}}
+@media(prefers-reduced-motion:reduce){.flyer-tearing,.flyer-hand,.flyer-arriving{animation:none!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
