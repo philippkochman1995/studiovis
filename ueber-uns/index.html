@@ -39,15 +39,17 @@
   </main>
   <div class="poster-outro" aria-hidden="true">
     <div class="poster-outro-stage">
-      <div class="poster-outro-photo"><img src="../assets/zoom-pole.png" alt=""></div>
-      <div class="poster-outro-sheet" inert></div>
+      <div class="poster-outro-world">
+        <div class="poster-outro-photo"><img src="../assets/zoom-pole.png" alt=""></div>
+        <div class="poster-outro-sheet" inert></div>
+      </div>
     </div>
   </div>
   <script>
     const outro = document.querySelector('.poster-outro');
+    const world = outro.querySelector('.poster-outro-world');
     const sheet = outro.querySelector('.poster-outro-sheet');
-    const photo = outro.querySelector('.poster-outro-photo');
-    const pole = photo.querySelector('img');
+    const pole = outro.querySelector('.poster-outro-photo img');
     sheet.append(
       document.querySelector('body > .site-header').cloneNode(true),
       document.querySelector('body > .about-page').cloneNode(true)
@@ -62,23 +64,25 @@
       const progress = window.matchMedia('(prefers-reduced-motion: reduce)').matches
         ? 1
         : clamp(-outro.getBoundingClientRect().top / distance);
-      const motion = clamp((progress - 0.08) / 0.84);
+      const motion = clamp((progress - 0.04) / 0.9);
       const eased = motion * motion * (3 - 2 * motion);
-      const image = pole.getBoundingClientRect();
+      const imageWidth = window.innerHeight * (pole.naturalWidth || 941) / (pole.naturalHeight || 1672);
+      const imageLeft = (window.innerWidth - imageWidth) / 2;
       const poster = {
-        x: image.left + image.width * 0.32,
-        y: image.top + image.height * 0.248,
-        width: image.width * 0.432,
-        height: image.height * 0.335
+        x: imageLeft + imageWidth * 0.32,
+        y: window.innerHeight * 0.248,
+        width: imageWidth * 0.432,
+        height: window.innerHeight * 0.335
       };
-      const moveX = (poster.x + poster.width / 2 - window.innerWidth / 2) * eased;
-      const moveY = (poster.y + poster.height / 2 - window.innerHeight / 2) * eased;
-      const scaleX = 1 + (poster.width / sheet.offsetWidth - 1) * eased;
-      const scaleY = 1 + (poster.height / sheet.offsetHeight - 1) * eased;
-      sheet.style.transform = `translate(-50%, -50%) translate3d(${moveX}px, ${moveY}px, 0) scale(${scaleX}, ${scaleY})`;
-      sheet.style.borderRadius = `${eased * 3}px`;
-      sheet.style.boxShadow = `0 ${eased * 12}px ${eased * 35}px rgba(0, 0, 0, ${eased * 0.22})`;
-      photo.style.opacity = clamp((progress - 0.05) / 0.55);
+      sheet.style.left = `${poster.x + poster.width / 2}px`;
+      sheet.style.top = `${poster.y + poster.height / 2}px`;
+      sheet.style.transform = `translate(-50%, -50%) scale(${poster.width / 720}, ${poster.height / 980})`;
+
+      const startScale = Math.max(window.innerWidth / poster.width, window.innerHeight / poster.height);
+      const startX = window.innerWidth / 2 - (poster.x + poster.width / 2) * startScale;
+      const startY = window.innerHeight - (poster.y + poster.height) * startScale;
+      const scale = startScale + (1 - startScale) * eased;
+      world.style.transform = `translate3d(${startX * (1 - eased)}px, ${startY * (1 - eased)}px, 0) scale(${scale})`;
     }
 
     function queueOutro() {
@@ -87,6 +91,7 @@
 
     window.addEventListener('scroll', queueOutro, { passive: true });
     window.addEventListener('resize', queueOutro);
+    pole.addEventListener('load', queueOutro);
     updateOutro();
   </script>
   <script data-goatcounter="https://studiovis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

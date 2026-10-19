@@ -60,11 +60,15 @@ h3{font-size:1.55rem}
 .about-contact a{text-underline-offset:4px}
 .poster-outro{height:260svh}
 .poster-outro-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--paper);isolation:isolate;pointer-events:none}
-.poster-outro-photo{position:absolute;inset:0;opacity:1;will-change:opacity}
+.poster-outro-world{position:absolute;inset:0;transform-origin:top left;will-change:transform}
+.poster-outro-photo{position:absolute;inset:0}
 .poster-outro-photo::before{content:"";position:absolute;inset:-50px;background:url('assets/zoom-pole.png') center/cover;filter:blur(42px) brightness(.55);transform:scale(1.07)}
 .poster-outro-photo img{position:absolute;top:0;left:50%;width:auto;max-width:none;height:100%;transform:translateX(-50%)}
-.poster-outro-sheet{position:absolute;z-index:1;top:50%;left:50%;width:min(720px,100vw);height:100svh;overflow:hidden;background:var(--paper);transform-origin:center;will-change:transform}
-.poster-outro-sheet .shell{max-width:100%}
+.poster-outro-sheet{position:absolute;z-index:1;width:720px;height:980px;overflow:hidden;background:var(--paper);box-shadow:0 8px 24px rgba(0,0,0,.18);transform-origin:center}
+.poster-outro-sheet .shell{width:calc(100% - 64px);max-width:720px}
+.poster-outro-sheet .site-header{min-height:100px}
+.poster-outro-sheet .about-page{min-height:880px;padding:2rem 0 3rem}
+.poster-outro-sheet .about-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem}
 .project-slider{margin-top:4rem}
 .project-slide[hidden]{display:none}
 .project-media{position:relative}
