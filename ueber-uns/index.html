@@ -23,78 +23,20 @@
     <span class="header-slot" aria-hidden="true"></span>
   </header>
   <main class="page-main shell about-page">
-    <h1>Starte dein Projekt &amp; werde außergewöhnlich gut gefunden</h1>
+    <h1>Werde außergewöhnlich gut gefunden.</h1>
     <div class="page-copy about-intro">
       <p>Wir sind das Design Studio in Wien, das immer zuerst an den „Unfair Advantage“ unserer Kund:innen denkt. Also an die Sache, die sie wirklich besonders macht und von der Menge abhebt.</p>
-      <p>Daraus entwickeln wir simple, aber geniale Ideen – häufig in Form von <strong>strategischen Websites und ungewöhnlichen Kampagnen</strong>, die unsere Kund:innen weiterbringen.</p>
+      <p>Daraus entwickeln wir simple, aber geniale Ideen – häufig in Form von <strong>strategischen Websites und ungewöhnlichen Kampagnen</strong>, die die Kunden unserer Kunden irgendwie gut finden.</p>
     </div>
     <div class="about-grid">
       <figure class="about-portrait"><img src="../assets/philipp-portrait.webp" alt="Philipp Kochman" width="1152" height="2048"></figure>
       <div class="about-contact">
-        <h2>So erreichst du uns</h2>
+        <h2>Starte dein Projekt</h2>
         <address>Philipp Kochman<br>Creative Director<br><a href="tel:+436645578898">0664 557 8898</a><br><a href="mailto:start@studiovis.at">start@studiovis.at</a></address>
       </div>
     </div>
-    <nav class="page-navigation" aria-label="Seitennavigation"><a class="secondary-button" href="../website/index.html" aria-label="Zurück zu den Websites"><span aria-hidden="true">←</span></a><span class="page-count" aria-label="Seite 4 von 4">4/4</span></nav>
+    <nav class="page-navigation" aria-label="Seitennavigation"><a class="secondary-button" href="../website/index.html" aria-label="Zurück zu den Websites"><span aria-hidden="true">←</span></a><span class="page-count" aria-label="Seite 4 von 4">4/4</span><a class="primary-button" href="mailto:start@studiovis.at?subject=Ich%20will%20euch%20mit%20Geld%20bewerfen!!!">Starte dein Projekt <span aria-hidden="true">↗</span></a></nav>
   </main>
-  <div class="poster-outro" aria-hidden="true">
-    <div class="poster-outro-stage">
-      <div class="poster-outro-world">
-        <div class="poster-outro-photo"><img src="../assets/zoom-pole.png" alt=""></div>
-        <div class="poster-outro-sheet" inert></div>
-      </div>
-    </div>
-  </div>
-  <script>
-    const outro = document.querySelector('.poster-outro');
-    const world = outro.querySelector('.poster-outro-world');
-    const sheet = outro.querySelector('.poster-outro-sheet');
-    const pole = outro.querySelector('.poster-outro-photo img');
-    sheet.append(
-      document.querySelector('body > .site-header').cloneNode(true),
-      document.querySelector('body > .about-page').cloneNode(true)
-    );
-
-    const clamp = value => Math.min(1, Math.max(0, value));
-    let frame = 0;
-
-    function updateOutro() {
-      frame = 0;
-      const distance = Math.max(1, outro.offsetHeight - window.innerHeight);
-      const progress = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 1
-        : clamp(-outro.getBoundingClientRect().top / distance);
-      const motion = clamp((progress - 0.04) / 0.9);
-      const eased = motion * motion * (3 - 2 * motion);
-      const imageWidth = window.innerHeight * (pole.naturalWidth || 941) / (pole.naturalHeight || 1672);
-      const imageLeft = (window.innerWidth - imageWidth) / 2;
-      const poster = {
-        x: imageLeft + imageWidth * 0.32,
-        y: window.innerHeight * 0.248,
-        width: imageWidth * 0.432,
-        height: window.innerHeight * 0.335
-      };
-      sheet.style.left = `${poster.x + poster.width / 2}px`;
-      sheet.style.top = `${poster.y + poster.height / 2}px`;
-      sheet.style.transform = `translate(-50%, -50%) scale(${poster.width / 720}, ${poster.height / 980})`;
-
-      const startScale = Math.max(window.innerWidth / poster.width, window.innerHeight / poster.height);
-      const startX = window.innerWidth / 2 - (poster.x + poster.width / 2) * startScale;
-      const startY = window.innerHeight - (poster.y + poster.height) * startScale;
-      const scale = startScale + (1 - startScale) * eased;
-      world.style.transform = `translate3d(${startX * (1 - eased)}px, ${startY * (1 - eased)}px, 0) scale(${scale})`;
-    }
-
-    function queueOutro() {
-      if (!frame) frame = requestAnimationFrame(updateOutro);
-    }
-
-    window.addEventListener('scroll', queueOutro, { passive: true });
-    window.addEventListener('resize', queueOutro);
-    pole.addEventListener('load', queueOutro);
-    updateOutro();
-  </script>
   <script data-goatcounter="https://studiovis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-  <script src="../assets/page-transition.js"></script>
 </body>
 </html>
