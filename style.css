@@ -31,6 +31,8 @@ h3{font-size:1.55rem}
 .page-navigation .secondary-button{grid-column:1;justify-self:start}
 .page-navigation .primary-button{grid-column:3;justify-self:end}
 .page-count{grid-column:2;grid-row:1;color:var(--muted);font-size:.85rem;line-height:1;font-variant-numeric:tabular-nums}
+.page-navigation .imprint-link{grid-column:3;justify-self:end;display:inline-flex;align-items:center;min-height:44px;padding-left:.5rem;color:var(--muted);font-size:.75rem;line-height:1.2;text-decoration-thickness:1px;text-underline-offset:3px}
+.page-navigation .imprint-link:hover{color:var(--ink)}
 .choice-screen{display:flex;flex-direction:column;min-height:calc(100svh - 100px);padding:2rem 0 3rem}
 .choice-screen .page-navigation{margin-top:auto;padding-top:3rem}
 .choice-screen h1{margin-bottom:2rem}
