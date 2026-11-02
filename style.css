@@ -20,7 +20,7 @@ h3{font-size:1.55rem}
 .hero-visual{position:relative;height:min(58vw,690px);min-height:440px;overflow:hidden;border-radius:22px;background:#30291f;isolation:isolate}
 .hero-visual::before{content:"";position:absolute;inset:-20px;background:url('assets/plakat.png') center 39%/cover;filter:blur(44px) brightness(.43);transform:scale(1.06);z-index:-1}
 .hero-visual img{height:100%;width:min(46%,630px);min-width:390px;margin-inline:auto;object-fit:cover;object-position:center 17%}
-.hero-caption{position:absolute;z-index:1;inset:auto 0 0;margin:0;padding:4rem clamp(1rem,4vw,2rem) clamp(1rem,3vw,1.5rem);color:#fff;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.58) 38%,rgba(0,0,0,.88));font-size:clamp(.92rem,1.1vw,1.05rem);line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.hero-caption{position:absolute;z-index:1;inset:auto 0 0;margin:0;padding:4rem clamp(1rem,4vw,2rem) clamp(1rem,3vw,1.5rem);color:#fff;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.58) 38%,rgba(0,0,0,.88));font-size:clamp(.828rem,.99vw,.945rem);line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.35)}
 .statement{font-size:1.4rem;margin:2rem 0 1.5rem;max-width:850px}
 .home-actions{display:flex;justify-content:flex-end;padding-bottom:4.5rem}
 .primary-button{display:inline-flex;align-items:center;justify-content:center;gap:1.5rem;min-width:170px;padding:.95rem 1.4rem;border-radius:12px;background:var(--ink);color:#fff;text-decoration:none;font-size:1.05rem;font-weight:600;line-height:1.2;transition:background .2s,transform .2s}
