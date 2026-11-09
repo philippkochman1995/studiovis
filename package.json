@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "test": "node --test quiz/diagnosis.test.js"
+  },
   "dependencies": {
     "esbuild": "^0.28.2",
     "html-to-image": "^1.11.13",

@@ -1,6 +1,10 @@
 # Studio Vis – lokale Website
 
-Die Website kann direkt über `index.html` im Browser geöffnet werden. Der Button „Weiter“ führt zur Auswahlfrage. Die erste Antwort öffnet die Website-Projekte, die zweite das Google-Rezensionsformular von Studio Vis. Von den Website-Projekten führt „Weiter“ zur Kontaktseite. Die Projektbelege öffnen mit der lokal eingebundenen GLightbox-Bibliothek.
+Die Website kann direkt über `index.html` im Browser geöffnet werden. „Weiter“ führt zur Auswahlfrage. „Ich will eine Website“ öffnet direkt die Website-Seite; die zweite Auswahl führt zur Google-Rezension. Von der Website-Seite geht es zur Über-uns-Seite. Deren „Weiter“-Button führt zur lokalen Studio-Vis-Seite. Die Projektbelege auf der Website-Seite öffnen mit der lokal eingebundenen GLightbox-Bibliothek.
+
+Das Quiz unter `quiz/` bleibt für eine spätere Verwendung im Projekt, ist aber nicht mehr Teil des Navigationsflusses.
+
+Die Diagnose-Tests laufen mit `npm test`.
 
 Alternativ im Ordner `Website` starten:
 
