@@ -2,6 +2,15 @@
 (() => {
   const root = new URL('./', document.currentScript.src);
   const paths = new Set(['', 'about', 'referenzen', 'contact', 'datenschutzerklrung', 'impressum']);
+
+  // Directory URLs load index.html while keeping the address bar readable.
+  const current = new URL(location.href);
+  if (current.pathname.endsWith('/index.html')) {
+    current.pathname = current.pathname.slice(0, -'index.html'.length);
+    current.searchParams.delete('v');
+    history.replaceState(null, '', current.pathname + current.search + current.hash);
+  }
+
   document.addEventListener('click', event => {
     const link = event.target.closest('a[href]');
     if (!link) return;
@@ -16,9 +25,9 @@
       : requestedPath;
     const path = localPath.replace(/(?:^|\/)index\.html$/, '').replace(/\/$/, '');
     if (!paths.has(path)) return;
-    const destination = new URL(path ? `${path}/index.html` : 'index.html', root);
+    const destination = new URL(path ? `${path}/` : './', root);
     destination.search = url.search;
-    destination.searchParams.set('v', 'inline-thanks-4');
+    destination.searchParams.delete('v');
     destination.hash = url.hash;
     link.href = destination.href;
   }, true);

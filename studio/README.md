@@ -1,6 +1,6 @@
 # Squarespace-Kopie
 
-Lokale Kopie von https://broccoli-tuba-pmpf.squarespace.com/ mit Startseite, Referenzen, Über uns, Kontakt, Datenschutz und Impressum. Einstieg aus `../auswahl/index.html` über „Ich will mehr über euch erfahren“.
+Lokale Kopie von https://broccoli-tuba-pmpf.squarespace.com/ mit Startseite, Referenzen, Über uns, Kontakt, Datenschutz und Impressum. Die veröffentlichten Seiten haben kurze Adressen wie `/studio/`, `/studio/contact/` und `/studio/about/`.
 
 HTML, originale responsive Layoutregeln, 112 CSS-/Bild-/Schriftdateien sind lokal enthalten. `asset-manifest.json` ordnet die Dateien ihren Originalquellen zu. Die vorhandene Website und ihr Quiz bleiben bestehen.
 
@@ -14,4 +14,4 @@ Vorschau im Projekt-Hauptordner starten:
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-Dann http://127.0.0.1:8080/auswahl/index.html öffnen.
+Dann http://127.0.0.1:8080/auswahl/ öffnen.
