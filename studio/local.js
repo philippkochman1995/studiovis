@@ -93,30 +93,61 @@
     });
   }
 
+  function renderedImageBounds(image) {
+    const box = image.getBoundingClientRect();
+    let left = box.left;
+    let width = box.width;
+    const nativeWidth = image.naturalWidth || Number(image.getAttribute('width'));
+    const nativeHeight = image.naturalHeight || Number(image.getAttribute('height'));
+    if (getComputedStyle(image).objectFit === 'contain' && nativeWidth && nativeHeight) {
+      const fittedWidth = box.height * nativeWidth / nativeHeight;
+      if (fittedWidth < width) {
+        left += (width - fittedWidth) / 2;
+        width = fittedWidth;
+      }
+    }
+    return { left, right: left + width, width };
+  }
+
+  function centerStartPageProjects(pairs) {
+    const engine = document.querySelector('.fe-692839935c52f81496872d5e');
+    if (!engine) return;
+    const projectPairs = pairs.filter(([image]) => engine.contains(image));
+    for (const [image] of projectPairs) {
+      const block = image.closest('.fe-block');
+      block.style.position = 'relative';
+      block.style.left = '0px';
+    }
+    if (!matchMedia('(min-width: 768px)').matches) return;
+
+    const firstRowIds = new Set([
+      'fe-block-41838b8dc1b916303c0b',
+      'fe-block-c296a1174f64b9f38f1a',
+      'fe-block-b6e94fde77ee8d79a1a3',
+    ]);
+    const firstRow = projectPairs
+      .filter(([image]) => firstRowIds.has(image.closest('.fe-block').classList[1]))
+      .map(([image]) => renderedImageBounds(image));
+    if (firstRow.length !== 3 || firstRow.some(bounds => !bounds.width)) return;
+
+    const left = Math.min(...firstRow.map(bounds => bounds.left));
+    const right = Math.max(...firstRow.map(bounds => bounds.right));
+    const offset = (document.documentElement.clientWidth - left - right) / 2;
+    for (const [image] of projectPairs) image.closest('.fe-block').style.left = `${offset}px`;
+  }
+
   function alignProjectCaptions(pairs) {
+    centerStartPageProjects(pairs);
     for (const [image, caption] of pairs) {
       caption.style.position = 'relative';
       caption.style.left = '0px';
       caption.style.maxWidth = '';
 
-      const box = image.getBoundingClientRect();
-      if (!box.width || !box.height) continue;
-
-      let left = box.left;
-      let width = box.width;
-      const nativeWidth = image.naturalWidth || Number(image.getAttribute('width'));
-      const nativeHeight = image.naturalHeight || Number(image.getAttribute('height'));
-      if (getComputedStyle(image).objectFit === 'contain' && nativeWidth && nativeHeight) {
-        const fittedWidth = box.height * nativeWidth / nativeHeight;
-        if (fittedWidth < width) {
-          left += (width - fittedWidth) / 2;
-          width = fittedWidth;
-        }
-      }
-
+      const bounds = renderedImageBounds(image);
+      if (!bounds.width) continue;
       const text = caption.querySelector('.sqs-html-content');
-      caption.style.left = `${left - text.getBoundingClientRect().left}px`;
-      caption.style.maxWidth = `${width}px`;
+      caption.style.left = `${bounds.left - text.getBoundingClientRect().left}px`;
+      caption.style.maxWidth = `${bounds.width}px`;
     }
   }
 
