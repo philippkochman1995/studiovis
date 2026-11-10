@@ -3,6 +3,13 @@
   const root = new URL('./', document.currentScript.src);
   const paths = new Set(['', 'about', 'referenzen', 'contact', 'datenschutzerklrung', 'impressum']);
 
+  // Use the same Mouseflow project as the main site on every Studio page.
+  window._mfq = window._mfq || [];
+  const mouseflow = document.createElement('script');
+  mouseflow.defer = true;
+  mouseflow.src = 'https://cdn.mouseflow.com/projects/00325591-26b7-47a3-9829-6b5e6e322e35.js';
+  document.head.appendChild(mouseflow);
+
   // Directory URLs load index.html while keeping the address bar readable.
   const current = new URL(location.href);
   if (current.pathname.endsWith('/index.html')) {
