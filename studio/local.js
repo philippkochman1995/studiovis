@@ -76,4 +76,77 @@
       status.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   }, true);
+
+  // Squarespace centers some project images inside wider grid cells. Align the
+  // following caption with the rendered image rather than the grid cell.
+  function projectImageCaptionPairs() {
+    const engines = document.querySelectorAll(
+      '.fe-692839935c52f81496872d5e, .fe-69fdb5562ddaa90bb31304c6'
+    );
+    return [...engines].flatMap(engine => {
+      const blocks = [...engine.children].filter(child => child.classList.contains('fe-block'));
+      return blocks.flatMap((block, index) => {
+        const image = block.querySelector('.fluid-image-container img');
+        const caption = blocks[index + 1];
+        return image && caption?.querySelector('.sqs-html-content') ? [[image, caption]] : [];
+      });
+    });
+  }
+
+  function alignProjectCaptions(pairs) {
+    for (const [image, caption] of pairs) {
+      caption.style.position = 'relative';
+      caption.style.left = '0px';
+      caption.style.maxWidth = '';
+
+      const box = image.getBoundingClientRect();
+      if (!box.width || !box.height) continue;
+
+      let left = box.left;
+      let width = box.width;
+      const nativeWidth = image.naturalWidth || Number(image.getAttribute('width'));
+      const nativeHeight = image.naturalHeight || Number(image.getAttribute('height'));
+      if (getComputedStyle(image).objectFit === 'contain' && nativeWidth && nativeHeight) {
+        const fittedWidth = box.height * nativeWidth / nativeHeight;
+        if (fittedWidth < width) {
+          left += (width - fittedWidth) / 2;
+          width = fittedWidth;
+        }
+      }
+
+      const text = caption.querySelector('.sqs-html-content');
+      caption.style.left = `${left - text.getBoundingClientRect().left}px`;
+      caption.style.maxWidth = `${width}px`;
+    }
+  }
+
+  function initProjectCaptions() {
+    const pairs = projectImageCaptionPairs();
+    if (!pairs.length) return;
+
+    let frame = 0;
+    const schedule = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        alignProjectCaptions(pairs);
+      });
+    };
+
+    for (const [image] of pairs) image.addEventListener('load', schedule);
+    if (window.ResizeObserver) {
+      const observer = new ResizeObserver(schedule);
+      for (const [image] of pairs) observer.observe(image);
+    }
+    window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('load', schedule, { once: true });
+    document.fonts?.ready.then(schedule);
+    schedule();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectCaptions, { once: true });
+  } else {
+    initProjectCaptions();
+  }
 })();
