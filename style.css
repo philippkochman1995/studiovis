@@ -70,7 +70,7 @@ h3{font-size:1.55rem}
 .project-slide[hidden]{display:none}
 .project-media{position:relative}
 .project-media>img{width:100%;height:auto;aspect-ratio:1030/708;object-fit:cover;border:1px solid var(--line);border-radius:18px;background:#fff}
-.project-media>video{display:block;width:100%;height:auto;aspect-ratio:1432/790;object-fit:cover;border:1px solid var(--line);border-radius:18px;background:#fff}
+.project-media>video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);border-radius:18px;background:#fff}
 .project-caption{padding-top:1.4rem}
 .project-caption p{font-size:1.1rem;line-height:1.5;margin:0}
 .project-caption a{text-decoration-thickness:1px;text-underline-offset:.18em}
