@@ -110,6 +110,7 @@
           </div>
         </article>
       </div>
+      <div class="project-dots" role="group" aria-label="Projekt auswählen"></div>
     </section>
     <nav class="page-navigation" aria-label="Seitennavigation"><a class="secondary-button" href="../auswahl/" aria-label="Zurück zur Auswahl"><span aria-hidden="true">←</span></a><span class="page-count" aria-label="Seite 3 von 3">3/3</span><a class="primary-button" href="../studio/">Weiter <span aria-hidden="true">→</span></a></nav>
   </main>
@@ -119,18 +120,47 @@
     GLightbox({ selector: '.project-proof-link', closeButton: true, openEffect: 'fade', closeEffect: 'fade' });
     const slider = document.querySelector('.project-slider');
     const slides = [...slider.querySelectorAll('.project-slide')];
+    const dotsContainer = slider.querySelector('.project-dots');
     let current = 0;
     let isAnimating = false;
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileSlider = matchMedia('(max-width: 650px)');
+    const projectNames = {
+      'project-kathrin-mika': 'DDr. Kathrin Mika',
+      'project-concerti-corti': 'Concerti Corti',
+      'project-listening-inward': 'Listening Inward',
+      'project-fotozeit': 'Fotozeit',
+      'project-vienna-housing-service': 'Vienna Housing Service',
+      'project-valentinart': 'ValentinArt',
+      'project-caroline-steffens': 'Caroline Steffens',
+      'project-ildiko-csamay': 'Ildiko Csamay',
+    };
+    const dots = slides.map((slide, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'project-dot';
+      dot.setAttribute('aria-label', `Projekt ${index + 1} von ${slides.length}: ${projectNames[slide.id]}`);
+      dot.addEventListener('click', () => showProject(index));
+      dotsContainer.append(dot);
+      return dot;
+    });
+
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === current);
+        dot.setAttribute('aria-current', index === current ? 'true' : 'false');
+      });
+    }
 
     function playProjectVideo(slide) {
       if (reduceMotion.matches) return;
       slide.querySelector('video')?.play().catch(() => {});
     }
 
-    async function showProject(direction) {
+    async function showProject(index, direction = index > current ? 1 : -1) {
       if (isAnimating) return;
-      const next = (current + direction + slides.length) % slides.length;
+      const next = (index + slides.length) % slides.length;
+      if (next === current) return;
       const outgoing = slides[current];
       const incoming = slides[next];
       isAnimating = true;
@@ -149,6 +179,7 @@
       exitAnimation?.cancel();
       incoming.hidden = false;
       current = next;
+      updateDots();
       playProjectVideo(incoming);
 
       if (!reduceMotion.matches && incoming.animate) {
@@ -162,8 +193,31 @@
     }
 
     slider.querySelectorAll('.project-arrow').forEach(button => {
-      button.addEventListener('click', () => showProject(Number(button.dataset.direction)));
+      button.addEventListener('click', () => {
+        const direction = Number(button.dataset.direction);
+        showProject(current + direction, direction);
+      });
     });
+
+    const stage = slider.querySelector('.project-stage');
+    let touchStart = null;
+    stage.addEventListener('touchstart', event => {
+      if (event.touches.length !== 1) return;
+      touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+    }, { passive: true });
+    stage.addEventListener('touchend', event => {
+      if (!touchStart || !mobileSlider.matches || event.changedTouches.length !== 1) return;
+      const deltaX = event.changedTouches[0].clientX - touchStart.x;
+      const deltaY = event.changedTouches[0].clientY - touchStart.y;
+      touchStart = null;
+      if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.2) return;
+      event.preventDefault();
+      const direction = deltaX < 0 ? 1 : -1;
+      showProject(current + direction, direction);
+    }, { passive: false });
+    stage.addEventListener('touchcancel', () => { touchStart = null; });
+
+    updateDots();
     playProjectVideo(slides[current]);
   </script>
   <script data-goatcounter="https://studiovis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
