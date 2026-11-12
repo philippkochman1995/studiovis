@@ -2,6 +2,8 @@
 (() => {
   const root = new URL('./', document.currentScript.src);
   const paths = new Set(['', 'about', 'referenzen', 'contact', 'datenschutzerklrung', 'impressum']);
+  const motionEnabled = 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (motionEnabled) document.documentElement.classList.add('studio-motion-ready');
 
   // Use the same Mouseflow project as the main site on every Studio page.
   window._mfq = window._mfq || [];
@@ -175,9 +177,31 @@
     schedule();
   }
 
+  function initStudioReveal() {
+    if (!motionEnabled) return;
+    const elements = document.querySelectorAll('#header .header-inner, .page-section .fe-block');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px 50px 0px' });
+
+    elements.forEach((element, index) => {
+      element.classList.add('studio-reveal');
+      element.style.setProperty('--studio-reveal-delay', `${Math.min(index % 4, 3) * 65}ms`);
+      observer.observe(element);
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initProjectCaptions, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      initProjectCaptions();
+      initStudioReveal();
+    }, { once: true });
   } else {
     initProjectCaptions();
+    initStudioReveal();
   }
 })();

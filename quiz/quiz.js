@@ -165,7 +165,7 @@
     lead.append(form);
     lead.append(element('p', 'result-form-note', 'Der Button öffnet dein E-Mail-Programm. Du kannst die Nachricht vor dem Senden prüfen.'));
     const contact = element('a', 'result-secondary', 'Oder direkt Kontakt aufnehmen →');
-    contact.href = '../ueber-uns/';
+    contact.href = '../studio/#kontakt';
     lead.append(contact);
     wrap.append(lead);
     content.append(wrap);

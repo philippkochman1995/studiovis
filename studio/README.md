@@ -1,6 +1,6 @@
 # Squarespace-Kopie
 
-Lokale Kopie von https://broccoli-tuba-pmpf.squarespace.com/ mit Startseite, Referenzen, Über uns, Kontakt, Datenschutz und Impressum. Die veröffentlichten Seiten haben kurze Adressen wie `/studio/`, `/studio/contact/` und `/studio/about/`.
+Lokale Kopie von https://broccoli-tuba-pmpf.squarespace.com/ mit Startseite, Referenzen, Über uns, Datenschutz und Impressum. Das Kontaktformular liegt auf `/studio/#kontakt`; die frühere Adresse `/studio/contact/` leitet dorthin weiter.
 
 HTML, originale responsive Layoutregeln, 112 CSS-/Bild-/Schriftdateien sind lokal enthalten. `asset-manifest.json` ordnet die Dateien ihren Originalquellen zu. Die vorhandene Website und ihr Quiz bleiben bestehen.
 

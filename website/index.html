@@ -7,6 +7,7 @@
   <meta name="description" content="Eine Website, die Menschen dein Angebot verstehen lässt und in Erinnerung bleibt.">
   <link rel="stylesheet" href="../assets/vendor/glightbox/glightbox.min.css">
   <link rel="stylesheet" href="../style.css">
+  <script defer src="../assets/reveal.js"></script>
   <script type="text/javascript">
     window._mfq = window._mfq || [];
     (function() {
@@ -101,7 +102,7 @@
         </article>
       </div>
     </section>
-    <nav class="page-navigation" aria-label="Seitennavigation"><a class="secondary-button" href="../auswahl/" aria-label="Zurück zur Auswahl"><span aria-hidden="true">←</span></a><span class="page-count" aria-label="Seite 3 von 4">3/4</span><a class="primary-button" href="../ueber-uns/">Weiter <span aria-hidden="true">→</span></a></nav>
+    <nav class="page-navigation" aria-label="Seitennavigation"><a class="secondary-button" href="../auswahl/" aria-label="Zurück zur Auswahl"><span aria-hidden="true">←</span></a><span class="page-count" aria-label="Seite 3 von 3">3/3</span><a class="primary-button" href="../studio/">Weiter <span aria-hidden="true">→</span></a></nav>
   </main>
 
   <script src="../assets/vendor/glightbox/glightbox.min.js"></script>
@@ -110,14 +111,42 @@
     const slider = document.querySelector('.project-slider');
     const slides = [...slider.querySelectorAll('.project-slide')];
     let current = 0;
+    let isAnimating = false;
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-    function showProject(index) {
-      current = (index + slides.length) % slides.length;
-      slides.forEach((slide, position) => { slide.hidden = position !== current; });
+    async function showProject(direction) {
+      if (isAnimating) return;
+      const next = (current + direction + slides.length) % slides.length;
+      const outgoing = slides[current];
+      const incoming = slides[next];
+      isAnimating = true;
+
+      let exitAnimation;
+      if (!reduceMotion.matches && outgoing.animate) {
+        exitAnimation = outgoing.animate([
+          { opacity: 1, transform: 'translateX(0)' },
+          { opacity: 0, transform: `translateX(${-direction * 22}px)` },
+        ], { duration: 170, easing: 'ease-in', fill: 'forwards' });
+        await exitAnimation.finished.catch(() => {});
+      }
+
+      outgoing.hidden = true;
+      exitAnimation?.cancel();
+      incoming.hidden = false;
+      current = next;
+
+      if (!reduceMotion.matches && incoming.animate) {
+        await incoming.animate([
+          { opacity: 0, transform: `translateX(${direction * 28}px)` },
+          { opacity: 1, transform: 'translateX(0)' },
+        ], { duration: 330, easing: 'cubic-bezier(.2,.7,.2,1)' }).finished.catch(() => {});
+      }
+
+      isAnimating = false;
     }
 
     slider.querySelectorAll('.project-arrow').forEach(button => {
-      button.addEventListener('click', () => showProject(current + Number(button.dataset.direction)));
+      button.addEventListener('click', () => showProject(Number(button.dataset.direction)));
     });
   </script>
   <script data-goatcounter="https://studiovis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
