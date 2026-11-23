@@ -14,4 +14,4 @@ Vorschau im Projekt-Hauptordner starten:
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-Dann http://127.0.0.1:8080/auswahl/ öffnen.
+Dann http://127.0.0.1:8080/ öffnen. Die Hauptadresse führt direkt zur Studio-Seite.
