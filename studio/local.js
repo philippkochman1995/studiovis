@@ -27,6 +27,7 @@
     if (!href || href.startsWith('#')) return;
     const url = new URL(href, location.href);
     if (url.origin !== location.origin) return;
+    if (url.pathname === '/') return;
     const sitePath = root.pathname.replace(/^\/+|\/+$/g, '');
     const requestedPath = url.pathname.replace(/^\/+|\/+$/g, '');
     const localPath = requestedPath.startsWith(`${sitePath}/`)

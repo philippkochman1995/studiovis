@@ -1,8 +1,8 @@
 # Squarespace-Kopie
 
-Lokale Kopie von https://broccoli-tuba-pmpf.squarespace.com/ mit Startseite, Referenzen, Über uns, Datenschutz und Impressum. Das Kontaktformular liegt auf `/studio/#kontakt`; die frühere Adresse `/studio/contact/` leitet dorthin weiter.
+Lokale Kopie von https://broccoli-tuba-pmpf.squarespace.com/ mit Startseite, Referenzen, Über uns, Datenschutz und Impressum. Die Startseite liegt unter `/`, das Kontaktformular unter `/#kontakt`. Die früheren Adressen `/studio/` und `/studio/contact/` leiten dorthin weiter.
 
-HTML, originale responsive Layoutregeln, 112 CSS-/Bild-/Schriftdateien sind lokal enthalten. `asset-manifest.json` ordnet die Dateien ihren Originalquellen zu. Die vorhandene Website und ihr Quiz bleiben bestehen.
+HTML, originale responsive Layoutregeln, 112 CSS-/Bild-/Schriftdateien sind lokal enthalten. `asset-manifest.json` ordnet die Dateien ihren Originalquellen zu. Die früheren Einstiegsseiten und ihr Quiz liegen für später unter `_drafts/`.
 
 Die Squarespace-JavaScript-Laufzeit, Adobe-Schriften und externe Widgets werden weiterhin von den Originaldiensten geladen. Die Kopie ist daher kein vollständig von Squarespace unabhängiger Export. `local.js` lädt auf allen Studio-Seiten dasselbe Mouseflow-Projekt wie die Hauptseite. Die drei Kontaktformulare auf Startseite, Kontaktseite und Referenzen verwenden Formspree (`https://formspree.io/f/xeaabobk`) und senden an `start@studiovis.at`. Bei erfolgreichem JavaScript-Versand erscheint die Bestätigung direkt unter dem Formular. Der tatsächliche Versand wurde nicht ausgelöst; die Zustellung ist nach Veröffentlichung noch zu prüfen.
 
@@ -14,4 +14,4 @@ Vorschau im Projekt-Hauptordner starten:
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-Dann http://127.0.0.1:8080/ öffnen. Die Hauptadresse führt direkt zur Studio-Seite.
+Dann http://127.0.0.1:8080/ öffnen. Die Hauptadresse zeigt direkt die Studio-Seite.

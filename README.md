@@ -1,10 +1,10 @@
 # Studio Vis – lokale Website
 
-Die Website wird über einen lokalen Webserver oder die veröffentlichte Domain geöffnet. Die Hauptadresse `/` führt direkt zur Studio-Vis-Startseite unter `/studio/`. Dort führen die Kontaktbuttons zum Formular unter `/studio/#kontakt`. Alte Adressen wie `/ueber-uns/` und `/studio/contact/` leiten zu den neuen Zielen weiter.
+Die Website wird über einen lokalen Webserver oder die veröffentlichte Domain geöffnet. Die Hauptadresse `/` zeigt direkt die Studio-Vis-Startseite. Dort führen die Kontaktbuttons zum Formular unter `/#kontakt`. Alte Adressen wie `/studio/`, `/ueber-uns/` und `/studio/contact/` leiten zu den passenden Zielen weiter.
 
-Die neuen Einstiegsseiten (`/auswahl/`, `/website/` und weitere) bleiben für eine spätere Verwendung im Projekt, sind aber vorerst nicht Teil des Besuchsflusses.
+Die neuen Einstiegsseiten (`auswahl`, `website`, `ideen`, `gespraech`) und das Quiz liegen für später unter `_drafts/` und werden nicht veröffentlicht. Auch die frühere Startseite liegt dort als `index.html`.
 
-Das Quiz unter `quiz/` bleibt für eine spätere Verwendung im Projekt, ist aber nicht mehr Teil des Navigationsflusses.
+Das Quiz unter `_drafts/quiz/` bleibt für eine spätere Verwendung im Projekt, ist aber nicht mehr Teil des Navigationsflusses.
 
 Die Diagnose-Tests laufen mit `npm test`.
 

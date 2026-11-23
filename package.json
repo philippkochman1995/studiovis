@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "node --test quiz/diagnosis.test.js"
+    "test": "node --test _drafts/quiz/diagnosis.test.js"
   },
   "dependencies": {
     "esbuild": "^0.28.2",
